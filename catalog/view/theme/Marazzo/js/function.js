@@ -33,19 +33,20 @@ $(document).ready(function() {
     });
 
     // Currency
-    $('#form-currency .currency-select').on('click', function(e) {
+    $('#form-currency a').on('click', function(e) {
         e.preventDefault();
 
-        $('#form-currency input[name=\'code\']').val($(this).attr('name'));
+        $('#form-currency input[name=\'code\']').val($(this).attr('href'));
 
         $('#form-currency').submit();
     });
 
     // Language
-    $('#form-language .language-select').on('click', function(e) {
+
+    $('#form-language a').on('click', function(e) {
         e.preventDefault();
 
-        $('#form-language input[name=\'code\']').val($(this).attr('name'));
+        $('#form-language input[name=\'code\']').val($(this).attr('href'));
 
         $('#form-language').submit();
     });
@@ -224,7 +225,7 @@ var cart = {
                 if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
                     location = 'index.php?route=checkout/cart';
                 } else {
-                    $('#cart > ul').load('index.php?route=common/cart/info ul li');
+                    $('.mini-cart .fl-mini-cart-content').load('index.php?route=common/cart/info .mini-cart .fl-mini-cart-content>div');
                 }
             },
             error: function(xhr, ajaxOptions, thrownError) {

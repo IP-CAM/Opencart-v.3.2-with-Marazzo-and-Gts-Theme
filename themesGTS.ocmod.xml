@@ -8,7 +8,7 @@
     <file path="catalog/controller/common/header.php">
 
         <operation>
-            <search ><![CDATA[
+            <search><![CDATA[
 			$data['blog_menu'] = '';
             ]]></search>
             <add position="after" offset="1"><![CDATA[
@@ -38,6 +38,48 @@
 
 
             ]]></add>
+        </operation>
+
+    </file>
+    <file path="catalog/controller/common/cart.php">
+        <operation>
+			<search><![CDATA[
+			$data['text_items'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));
+				]]></search>
+			<add position="replace" ><![CDATA[
+			/**
+			 * Marazzo
+			 */
+
+			$data['m_cart_total'] = $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0);
+
+			$data['text_items'] = sprintf($this->language->get('text_items'), $data['m_cart_total'], $this->currency->format($total, $this->session->data['currency']));
+
+			/**
+			 * Marazzo end
+			 */
+			]]></add>
+        </operation>
+
+    </file>
+    <file path="catalog/controller/checkout/cart.php">
+        <operation>
+			<search  index="1" ><![CDATA[
+			$json['total'] = sprintf($this->language->get('text_items'), $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0), $this->currency->format($total, $this->session->data['currency']));
+				]]></search>
+			<add position="replace" ><![CDATA[
+			/**
+			 * Marazzo
+			 */
+
+			$json['m_cart_total'] = $this->cart->countProducts() + (isset($this->session->data['vouchers']) ? count($this->session->data['vouchers']) : 0);
+
+			$json['total'] = sprintf($this->language->get('text_items'), $json['m_cart_total'], $this->currency->format($total, $this->session->data['currency']));
+
+			/**
+			 * Marazzo end
+			 */
+			]]></add>
         </operation>
 
     </file>
