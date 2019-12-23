@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <modification>
-    <name>Currency from GTS</name>
-    <code>currencygts</code>
+    <name>Install from GTS</name>
+    <code>Install</code>
     <version>1.01</version>
     <author>OpenCart Ltd</author>
     <link>http://www.opencart.com</link>
@@ -11,7 +11,7 @@
             <search ><![CDATA[
 			$data['blog_menu'] = '';
             ]]></search>
-            <add position="after" ><![CDATA[
+            <add position="after" offset="1"><![CDATA[
 
 
         /**
