@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>Currency from GTS</name>
+    <code>currencygts</code>
+    <version>1.01</version>
+    <author>OpenCart Ltd</author>
+    <link>http://www.opencart.com</link>
+    <file path="catalog/controller/common/header.php">
+
+        <operation>
+            <search ><![CDATA[
+			$data['blog_menu'] = '';
+            ]]></search>
+            <add position="after" ><![CDATA[
+
+
+        /**
+         * Marazzo
+         */
+
+        /**
+         * TOP MENU
+         */
+
+
+        $this->load->model('gtsmenu/menu');
+
+        $topMenu['topmenu'] = $this->model_gtsmenu_menu->getMenu(11);
+
+        $data['topmenu']    = $this->load->view('common/menu', $topMenu);
+        /**
+         * TOP MENU END
+         */
+
+        /**
+         * Marazzo end
+         */
+
+
+            ]]></add>
+        </operation>
+
+    </file>
+</modification>

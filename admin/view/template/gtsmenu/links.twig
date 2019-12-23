@@ -1,0 +1,112 @@
+{{ header }}{{ column_left }}
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-right">
+                <a href="{{ add_menu }}" data-toggle="tooltip" title="{{ button_add }}" class="btn btn-primary"><i
+                            class="fa fa-plus"></i></a>
+
+                <button type="button" form="form-article" formaction="{{ delete }}" data-toggle="tooltip"
+                        title="{{ button_delete }}" class="btn btn-danger"
+                        onclick="confirm('{{ text_confirm }}') ? $('#form-article').submit() : false;"><i
+                            class="fa fa-trash-o"></i></button>
+            </div>
+            <h1>{{ heading_title }}</h1>
+            <ul class="breadcrumb">
+                {% for breadcrumb in breadcrumbs %}
+                    <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">{% if error_warning %}
+            <div class="alert alert-danger alert-dismissible"><i
+                        class="fa fa-exclamation-circle"></i> {{ error_warning }}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+        {% endif %}
+        {% if success %}
+            <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+        {% endif %}
+        <style>
+
+        </style>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="heading">
+                    <div class="heading__unit">
+                        {{ name_page_menu }}
+                        <div class="tabs">
+                            <a href="{{ menu }}" class="tabs__item"><span>{{ name_page_menu }}</span></a>
+                            <a href="{{ links }}" class="tabs__item tabs__item_active"><span>{{ menu_items }}</span></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="head-box">
+                        <span class="head-box__unit">{{ button_add }}</span>
+                        <a href="{{ add_menu }}" class="btn">
+                            <i class="fa fa-plus-square"></i> {{ button_add }}</a>
+                    </div>
+                    {% if cats %}
+                        <p>
+                            <select class="redirect" name="cat" data-placeholder="{{ entry_select }}">
+                                <option value="0">{{ entry_cat_all }}</option>
+                                {% for cat in cats %}
+                                    <option {{ cat.selected }} value="{{ cat.id_menu }}">{{ cat.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </p>
+                    {% endif %}
+                    <form action="{{ delete }}" method="post" enctype="multipart/form-data" id="form-article">
+                        <div class="table-responsive">
+
+                            <ul class="list list_menus list_pages list_move ui-sortable">
+                                <li class="item item_heading" parent_id="0">
+                                    <div class="item__th"><input type="checkbox"
+                                                                 onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/></div>
+                                    <div class="item__th">{{ column_sort_order }}</div>
+                                    <div class="item__th"></div>
+                                    <div class="item__th">{{ column_name }}</div>
+                                    <div class="item__th"></div>
+                                </li>
+                                {% if menu_list %}
+                                    {{ menu_list }}
+                                {% endif %}
+                            </ul>
+
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <div class="block-url text-right">
+                            <a href="{{ add_menu }}" class="btn">
+                                <i class="fa fa-plus-square"></i> {{ button_add }}</a>
+                        </div>
+
+                    </form>
+                    <div class="row">
+                        <div class="col-sm-6 text-left">{{ pagination }}</div>
+                        <div class="col-sm-6 text-right">{{ results }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div style="display: none;" id="links">{{ links_js }}</div>
+<script type="application/javascript">
+    $('select.redirect').change(function () {
+        var $data = $('#links').text();
+        var $val = $(this).val();
+        if ($val == 0) {
+            document.location.href = $data;
+        } else {
+            document.location.href = $data + '&id_menu=' + $val;
+        }
+    });
+</script>
+{{ footer }}

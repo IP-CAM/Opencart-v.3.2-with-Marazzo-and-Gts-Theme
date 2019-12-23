@@ -1,0 +1,19 @@
+<div class="item__in {{ status ? "" : "item_disable" }}">
+    <div class="checkbox"><input type="checkbox" name="selected[]" value="{{ link_id }}"></div>
+    <div class="move">
+        <div class="item__field fast_edit">
+            <div class="item__field__cover"><span>{{ sort_order }}</span></div>
+        </div>
+    </div>
+    {{ children ? '<div class="item__toggle"><i class="fa fa-plus-circle"></i></div>' : '' }}
+    <div class="name" id="2"><a href="{{ url }}" title="Редактировать ({{ link_id }})">{{ name }} (ID: {{ link_id }})</a></div>
+    <div class="item__unit">
+        <a href="{{ add_menu }}&parent_id={{ link_id }}" class="item__ui add">
+            <i class="fa fa-plus-square"></i>
+            <span class="add__txt">{{ button_add_parent }}</span>
+        </a>
+        <a href="javascript:void(0)" title="Сделать неактивным" action="unblock" class="action item__ui switch">
+            <i class="fa fa-toggle-on"></i>
+        </a>
+    </div>
+</div>

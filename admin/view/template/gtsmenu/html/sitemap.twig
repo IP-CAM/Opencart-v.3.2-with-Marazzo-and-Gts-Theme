@@ -1,0 +1,46 @@
+<fieldset class="form-group">
+    <legend>{{ text_category_name }}</legend>
+    {% for category_1 in categories %}
+        <div class="box">
+            <label class="form-control1"><input type="radio" name="site_href" data-id="{{ category_1.id }}" value="{{ category_1.href }}" /><span class="name">{{ category_1.name }}</span></label>
+
+            {% if category_1.inner %}
+                <span data-toggle="tooltip" data-original-title="{{ text_mod }}" class="icon-link" data-id="{{ category_1.id }}" ><i class="fa fa-puzzle-piece fw"></i></span>
+            {% endif %}
+        </div><div></div>
+    {% endfor %}
+    <hr/>
+    {% if blogs %}
+        <legend>{{ text_blog_name }}</legend>
+        {% for category_1 in blogs %}
+            <div class="box">
+                <label class="form-control1"><input type="radio" name="site_href" data-id="{{ category_1.id }}" value="{{ category_1.href }}" /><span class="name">{{ category_1.name }}</span></label>
+
+                {% if category_1.inner %}
+                    <span data-toggle="tooltip" data-original-title="{{ text_mod }}" class="icon-link" data-id="{{ category_1.id }}" ><i class="fa fa-puzzle-piece fw"></i></span>
+                {% endif %}
+            </div><div></div>
+        {% endfor %}
+        <hr/>
+    {% endif %}
+    <legend>{{ text_information }}</legend>
+
+            {% for information in informations %}
+                <label  class="form-control1"><input type="radio" name="site_href" data-id="{{ category_1.id }}" value="{{ information.href }}"><span class="name">{{ information.title }}</span></label>
+            {% endfor %}
+    <label  class="form-control1"><input type="radio" name="site_href" data-id="{{ category_1.id }}" value="{{ contact }}"><span class="name">{{ text_contact }}</span></label>
+    <label class="form-control1"><input type="radio" name="site_href" data-id="{{ category_1.id }}" value="{{ special }}"><span class="name">{{ text_special }}</span></label>
+    <hr/>
+</fieldset>
+<script>
+
+    $(document).on('click', "#link_add", function () {
+        var $val = $('input[name="site_href"]:checked').val();
+        $("#entry_href_wrapp input").val($val);
+
+       /*var $valName = $('input[name="site_href"]:checked').parent().find('.name').text();
+        $("#input_name_wrapp input").val($valName);*/
+
+        $('#sitemap').modal('hide');
+    });
+</script>

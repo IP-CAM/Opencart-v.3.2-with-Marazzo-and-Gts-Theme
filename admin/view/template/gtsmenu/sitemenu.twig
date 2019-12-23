@@ -1,0 +1,122 @@
+{{ header }}{{ column_left }}
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-right">
+                <a href="{{ add_menu }}" data-toggle="tooltip" title="{{ button_add }}" class="btn btn-primary"><i
+                            class="fa fa-plus"></i></a>
+
+                <button type="button" form="form-article" formaction="{{ delete }}" data-toggle="tooltip"
+                        title="{{ button_delete }}" class="btn btn-danger"
+                        onclick="confirm('{{ text_confirm }}') ? $('#form-article').submit() : false;"><i
+                            class="fa fa-trash-o"></i></button>
+            </div>
+            <h1>{{ heading_title }}</h1>
+            <ul class="breadcrumb">
+                {% for breadcrumb in breadcrumbs %}
+                    <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">{% if error_warning %}
+            <div class="alert alert-danger alert-dismissible"><i
+                        class="fa fa-exclamation-circle"></i> {{ error_warning }}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+        {% endif %}
+        {% if success %}
+            <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+            </div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="heading">
+                    <div class="heading__unit">
+                        {{ name_page_menu }}
+                        <div class="tabs">
+                            <a href="{{ menu }}" class="tabs__item tabs__item_active"><span>{{ name_page_menu }}</span></a>
+                            <a href="{{ links }}" class="tabs__item"><span>{{ menu_items }}</span></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+
+                    <div class="head-box">
+                        <span class="head-box__unit">{{ button_add }}</span>
+                        <a href="{{ add_menu }}" class="btn">
+                            <i class="fa fa-plus-square"></i> {{ button_add }}</a>
+                    </div>
+                    <form action="{{ delete }}" method="post" enctype="multipart/form-data" id="form-article">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <td style="width: 1px;" class="text-center">
+                                        <input type="checkbox"
+                                               onclick="$('input[name*=\'selected\']').prop('checked', this.checked);"/>
+                                    </td>
+                                    <td class="text-left">{{ column_name }}</td>
+                                    <td class="text-left">{{ entry_status }}</td>
+                                    <td class="text-left">{{ column_data_add }}</td>
+                                    <td class="text-left">{{ column_data_midifikation }}</td>
+                                    <td class="text-right">{{ column_action }}</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+
+                                {% if menu_list %}
+
+                                    {% for menu in menu_list %}
+                                        <tr>
+                                            <td class="input">
+                                                <input type="checkbox" name="selected[]" value="{{ menu.id_menu }}"/>
+                                            </td>
+                                            <td class="column-name">{{ menu.name }}</td>
+                                            <td class="column-status">
+                                                {% if menu.status == 0 %}
+                                                    {{ name_no_status }}
+                                                {% else %}
+                                                    {{ name_yes_status }}
+                                                {% endif %}
+                                            </td>
+                                            <td class="column_data_add">{{ menu.date_added }}</td>
+                                            <td class="column_data_midifikation">{{ menu.date_modified }}</td>
+                                            <td class="text-right">
+                                                <a href="{{ menu.url }}" data-toggle="tooltip"
+                                                   title="{{ button_edit }}" class="btn btn-primary"><i
+                                                            class="fa fa-pencil"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td class="text-center" colspan="9">{{ text_no_results }}</td>
+                                    </tr>
+                                {% endif %}
+                                </tbody>
+
+                            </table>
+                        </div>
+
+                        <div class="clearfix"></div>
+                        <div class="block-url text-right">
+                            <a href="{{ add_menu }}" class="btn">
+                                <i class="fa fa-plus-square"></i> {{ button_add }}</a>
+                        </div>
+
+                    </form>
+                    <div class="row">
+                        <div class="col-sm-6 text-left">{{ pagination }}</div>
+                        <div class="col-sm-6 text-right">{{ results }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ footer }}
